@@ -1,0 +1,39 @@
+{
+  "name": "winston-console-formatter",
+  "version": "0.0.1",
+  "description": "Pretty print console formatter in yaml like style",
+  "main": "./dist/index.js",
+  "devDependencies": {
+    "babel": "^5.8.29",
+    "babel-eslint": "^4.0.5",
+    "babel-lab": "^1.0.0",
+    "eslint": "^1.1.0",
+    "lab": "^7.2.0"
+  },
+  "scripts": {
+    "build": "babel ./src --out-dir dist",
+    "prepublish": "npm run build",
+    "lint": "eslint ./src",
+    "test": "lab -T node_modules/babel-lab test/suites/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eugeny-dementev/winston-console-formatter.git"
+  },
+  "keywords": [
+    "module",
+    "boilerplate"
+  ],
+  "author": {
+    "name": "Eugeny Dementev",
+    "url": "http://github.com/eugeny-dementev"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/eugeny-dementev/winston-console-formatter/issues"
+  },
+  "homepage": "https://github.com/eugeny-dementev/winston-console-formatter",
+  "dependencies": {
+    "cli-color": "^1.1.0"
+  }
+}
