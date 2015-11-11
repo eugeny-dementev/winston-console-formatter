@@ -70,6 +70,8 @@ function typifiedString (value, indent) {
       return clc.green(value);
     case 'number':
       return clc.yellow(value);
+    case 'boolean':
+      return clc.cyan(value);
     default:
       return '';
   }

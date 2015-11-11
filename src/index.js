@@ -11,15 +11,25 @@ const colors = {
 };
 
 /**
- * @param {Object} meta
- * @param {function} timestamp
+ * @param {Object} logObject
+ * @param {function|boolean} time
  * @param {string} level
  * @param {string|undefined} optionsMessage
  * @param {string|undefined} label
- *
  * @return {string}
  */
-function formatter ({ meta, timestamp, level, message: optionsMessage, label }) {
+function formatter ({ meta: logObject, timestamp: time, level, message: optionsMessage, label }) {
+  var meta = logObject || {};
+  var timestamp = '';
+
+  if (time === true) {
+    timestamp = getISOTime();
+  } else if (typeof time === 'function') {
+    timestamp = time();
+  } else {
+    timestamp = 'no time';
+  }
+
   var { from, message: objectMessage, stack, trace } = meta;
 
   delete meta.from;
@@ -27,20 +37,25 @@ function formatter ({ meta, timestamp, level, message: optionsMessage, label }) 
   delete meta.stack;
   delete meta.trace;
 
-  var color = colors[level];
+  var color = colors[level || 'info'];
   var LEVEL = level.toUpperCase();
-  var message = optionsMessage || objectMessage;
+  var message = optionsMessage || objectMessage || 'no message';
 
-  var formattedMessage = clc[color](`[${timestamp()}] ${label} [${LEVEL}] ${from} - ${message}`);
+  var formattedMessage = clc[color](`[${timestamp}] ${label || ''} [${LEVEL}]`);
+
+  if (from) {
+    formattedMessage += ` ${clc.white(from)} -`;
+  }
+
+  formattedMessage += ` ${clc[color](message)}`;
 
   var stackTrace = utils.getStackTrace(stack, trace);
   if (stackTrace) {
     formattedMessage += stackTrace;
   }
 
-  var formattedMeta = clc.white(utils.objectProperty({ meta }));
-  if (formattedMeta) {
-    formattedMessage += formattedMeta;
+  if (meta) {
+    formattedMessage += clc.white(utils.objectProperty(meta));
   }
 
   return formattedMessage;
