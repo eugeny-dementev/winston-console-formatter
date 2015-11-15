@@ -1,6 +1,6 @@
 {
   "name": "winston-console-formatter",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Pretty print console formatter in yaml like style",
   "main": "./dist/index.js",
   "devDependencies": {
@@ -21,8 +21,12 @@
     "url": "https://github.com/eugeny-dementev/winston-console-formatter.git"
   },
   "keywords": [
-    "module",
-    "boilerplate"
+    "winston",
+    "console",
+    "formatter",
+    "config",
+    "yaml",
+    "beauty"
   ],
   "author": {
     "name": "Eugeny Dementev",

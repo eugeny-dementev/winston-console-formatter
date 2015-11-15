@@ -11,3 +11,7 @@
 ## v0.2.0
 
 * Reduce spaces. Types layout.
+
+## v0.2.1
+
+* npm module keywords update.
