@@ -1,15 +1,12 @@
 var clc = require('cli-color');
 
 /**
- * @param {string|undefined} stack
- * @param {string|undefined} trace
+ * @param {string|undefined} stackTrace
  * @returns {string}
  */
-function getStackTrace (stack, trace) {
-  var stackTrace = stack || trace || '';
-
-  if (stackTrace.length === 0) {
-    return stackTrace;
+function getStackTrace (stackTrace) {
+  if (!stackTrace) {
+    return '';
   }
 
   return clc.magenta(`\n  ${stackTrace.replace(/(\r\n|\n|\r)/gm, '$1  ')}`);
@@ -24,7 +21,7 @@ function getStackTrace (stack, trace) {
  */
 function objectProperty (obj = {}, indent = 1) {
   if (Object.keys(obj).length === 0) {
-    return '';
+    return indent === 1 ? '' : '{}';
   }
 
   var str = '\n';
@@ -47,7 +44,7 @@ function objectProperty (obj = {}, indent = 1) {
  */
 function arrayProperty (values, indent = 1) {
   if (values.length <= 0) {
-    return '';
+    return '[]';
   }
 
   var str = '\n';
@@ -71,7 +68,11 @@ function typifiedString (value, indent) {
     case 'number':
       return clc.yellow(value);
     case 'boolean':
-      return clc.cyan(value);
+      return clc.yellow.bold(value);
+    case 'null':
+      return clc.magenta.bold('null');
+    case 'undefined':
+      return clc.magenta.bold('undefined');
     default:
       return '';
   }
@@ -80,6 +81,10 @@ function typifiedString (value, indent) {
 function valueType (value) {
   if (Array.isArray(value)) {
     return 'array';
+  }
+
+  if (!value && typeof value === 'object') {
+    return 'null';
   }
 
   return typeof value;
@@ -94,8 +99,27 @@ function getPrefix (indent = 1) {
   return prefix;
 }
 
+function metaToYAML (meta) {
+  if (!meta || Object.keys(meta).length <= 0) {
+    return '';
+  }
+
+  return clc.white(objectProperty(meta));
+}
+
+/**
+ * @return {string} - iso formatted time string
+ */
+function getISOTime () {
+  var now = new Date().toISOString().split('T').join(' ');
+
+  return now.substring(0, now.length - 1);
+}
+
 exports.getStackTrace = getStackTrace;
 exports.arrayProperty = arrayProperty;
 exports.objectProperty = objectProperty;
 exports.typifiedString = typifiedString;
 exports.valueType = valueType;
+exports.getISOTime = getISOTime;
+exports.metaToYAML = metaToYAML;
