@@ -2,5 +2,6 @@ node_modules
 .idea
 .DS_Store
 *.log
+coverage.json
 coverage.html
 dist
