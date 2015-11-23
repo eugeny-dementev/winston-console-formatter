@@ -2,7 +2,7 @@
 
 It's look's like yaml \o/
 
-![Alt text](/log.png?raw=true "Type examples")
+![Types example](/log.png?raw=true "Types example")
 
 This is custom config for default winston console transform.
 

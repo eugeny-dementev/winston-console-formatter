@@ -15,3 +15,9 @@
 ## v0.2.1
 
 * npm module keywords update.
+
+## v0.3.0
+
+* Default colors for default winston levels
+* Possibility to set your own colors map if custom levels
+* Tests
