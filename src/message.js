@@ -1,16 +1,7 @@
-var clc = require('cli-color');
 var utils = require('./utils');
 
-const colors = {
-  trace: 'blue',
-  debug: 'cyan',
-  info: 'green',
-  warn: 'yellow',
-  error: 'red',
-  fatal: 'magenta'
-};
-
 class Message {
+  _colorizer = null;
   _message = 'No message';
   _timestamp = null;
   _level = 'info';
@@ -18,7 +9,26 @@ class Message {
   _from = null;
 
   /**
-   * @param {boolean|function} message
+   *
+   * @param {Colorizer} colorizer
+   */
+  setColorizer (colorizer) {
+    this._colorizer = colorizer;
+
+    return this;
+  }
+
+  colorify (string, color = null) {
+    try {
+      var clr = color || this._colorizer.colorByLevel(this._level);
+      return this._colorizer.colorify(string, clr);
+    } catch (e) {
+      return string;
+    }
+  }
+
+  /**
+   * @param {string|undefined} message
    * @return {Message}
    */
   setMessage (message) {
@@ -93,14 +103,12 @@ class Message {
     str += `[${this._level.toUpperCase()}] `;
 
     if (this._from) {
-      str += `${clc.white(this._from)} - `;
+      str += `${this.colorify(this._from, 'white')} - `;
     }
 
     str += `${this._message}`;
 
-    var color = colors[this._level];
-
-    return clc[color](str);
+    return this.colorify(str);
   }
 }
 

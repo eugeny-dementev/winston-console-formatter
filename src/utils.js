@@ -19,7 +19,7 @@ function getStackTrace (stackTrace) {
  * @param {number} [indent=1]
  * @returns {string}
  */
-function objectProperty (obj = {}, indent = 1) {
+function objectProperty (obj, indent = 1) {
   if (Object.keys(obj).length === 0) {
     return indent === 1 ? '' : '{}';
   }
@@ -44,7 +44,7 @@ function objectProperty (obj = {}, indent = 1) {
  */
 function arrayProperty (values, indent = 1) {
   if (values.length <= 0) {
-    return '[]';
+    return indent === 1 ? '' : '[]';
   }
 
   var str = '\n';
@@ -58,7 +58,7 @@ function arrayProperty (values, indent = 1) {
 }
 
 function typifiedString (value, indent) {
-  switch (valueType(value)) {
+  switch (typeOf(value)) {
     case 'array':
       return arrayProperty(value, indent);
     case 'object':
@@ -73,12 +73,10 @@ function typifiedString (value, indent) {
       return clc.magenta.bold('null');
     case 'undefined':
       return clc.magenta.bold('undefined');
-    default:
-      return '';
   }
 }
 
-function valueType (value) {
+function typeOf (value) {
   if (Array.isArray(value)) {
     return 'array';
   }
@@ -90,13 +88,18 @@ function valueType (value) {
   return typeof value;
 }
 
+var prefixes = {};
 function getPrefix (indent = 1) {
+  if (prefixes[indent]) {
+    return prefixes[indent];
+  }
+
   var prefix = '';
   for (let i = 0; i < indent; i++) {
     prefix += '  ';
   }
 
-  return prefix;
+  return (prefixes[indent] = prefix);
 }
 
 function metaToYAML (meta) {
@@ -120,6 +123,7 @@ exports.getStackTrace = getStackTrace;
 exports.arrayProperty = arrayProperty;
 exports.objectProperty = objectProperty;
 exports.typifiedString = typifiedString;
-exports.valueType = valueType;
 exports.getISOTime = getISOTime;
 exports.metaToYAML = metaToYAML;
+exports.getPrefix = getPrefix;
+exports.typeOf = typeOf;

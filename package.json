@@ -14,7 +14,8 @@
     "build": "babel ./src --out-dir dist",
     "prepublish": "npm run build",
     "lint": "eslint ./src",
-    "test": "lab -T node_modules/babel-lab test/suites/*.js"
+    "test": "lab -T node_modules/babel-lab test/suites/*.js",
+    "test-cov-html": "lab -T node_modules/babel-lab -r html -o coverage.html"
   },
   "repository": {
     "type": "git",

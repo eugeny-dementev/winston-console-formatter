@@ -6,6 +6,7 @@ node_modules/
 src/
 test/
 *.log
+coverage.html
 log.png
 .eslintrc
 .idea
