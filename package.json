@@ -16,7 +16,7 @@
     "prepublish": "npm run build",
     "lint": "eslint ./src",
     "test": "lab -T node_modules/babel-lab test/suites/*.js",
-    "codecov": "npm run test-cov-json && cat coverage.json | codecov",
+    "codecov": "lab -T node_modules/babel-lab -r lcov | codecov",
     "test-cov-html": "lab -T node_modules/babel-lab -r html -o coverage.html",
     "test-cov-json": "lab -T node_modules/babel-lab -r json -o coverage.json"
   },
