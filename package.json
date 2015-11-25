@@ -1,6 +1,6 @@
 {
   "name": "winston-console-formatter",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Pretty print console formatter in yaml like style",
   "main": "./dist/index.js",
   "devDependencies": {
@@ -17,8 +17,7 @@
     "lint": "eslint ./src",
     "test": "lab -T node_modules/babel-lab test/suites/*.js",
     "codecov": "lab -T node_modules/babel-lab -r lcov | codecov",
-    "test-cov-html": "lab -T node_modules/babel-lab -r html -o coverage.html",
-    "test-cov-json": "lab -T node_modules/babel-lab -r json -o coverage.json"
+    "test-cov-html": "lab -T node_modules/babel-lab -r html -o coverage.html"
   },
   "repository": {
     "type": "git",

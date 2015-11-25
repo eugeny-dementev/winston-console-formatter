@@ -21,3 +21,7 @@
 * Default colors for default winston levels
 * Possibility to set your own colors map if custom levels
 * Tests
+
+## v0.3.1
+
+* Reduce colorifying of message and meta view
