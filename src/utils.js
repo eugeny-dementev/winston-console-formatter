@@ -29,7 +29,7 @@ function objectProperty (obj, indent = 1) {
 
   Object.keys(obj).forEach((name) => {
     var value = obj[name];
-    str += `${prefix}${clc.white(name)}: ${typifiedString(value, indent + 1)}\n`;
+    str += `${prefix}${name}: ${typifiedString(value, indent + 1)}\n`;
   });
 
   return str.substring(0, str.length - 1);
@@ -107,7 +107,7 @@ function metaToYAML (meta) {
     return '';
   }
 
-  return clc.white(objectProperty(meta));
+  return objectProperty(meta);
 }
 
 /**

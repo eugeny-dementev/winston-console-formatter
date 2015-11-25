@@ -97,7 +97,7 @@ experiment('Utils', () => {
     test('with props object string is colored', (done) => {
       var str = utils.objectProperty({ h: 'h' });
 
-      assert.equal(str, `\n  ${clc.white('h')}: ${clc.green('h')}`);
+      assert.equal(str, `\n  h: ${clc.green('h')}`);
 
       done();
     });
@@ -260,7 +260,7 @@ experiment('Utils', () => {
       done();
     });
     test('meta is not empty object to white utils.objectProperty', (done) => {
-      assert.equal(utils.metaToYAML({ h: 'h' }), clc.white(utils.objectProperty({ h: 'h' })));
+      assert.equal(utils.metaToYAML({ h: 'h' }), utils.objectProperty({ h: 'h' }));
 
       done();
     });
