@@ -96,7 +96,9 @@ experiment('Message.', () => {
         .setFrom('client')
         .toString();
 
-      assert.equal(str, clc.green(`[INFO] ${clc.white('client')} - No message`));
+      var colored = clc.green(`[INFO] `) + 'client ' + clc.green(`- No message`);
+
+      assert.equal(str, colored);
 
       done();
     });

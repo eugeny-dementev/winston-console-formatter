@@ -90,25 +90,32 @@ class Message {
   }
 
   toString () {
-    var str = '';
+    var before = '';
+    var from = '';
+    var after = '';
 
     if (this._timestamp) {
-      str += `[${this._timestamp}] `;
+      before += `[${this._timestamp}] `;
     }
 
     if (this._label) {
-      str += `${this._label} `;
+      before += `${this._label} `;
     }
 
-    str += `[${this._level.toUpperCase()}] `;
+    before += `[${this._level.toUpperCase()}] `;
+
+    before = this.colorify(before);
 
     if (this._from) {
-      str += `${this.colorify(this._from, 'white')} - `;
+      from += `${this._from} `;
+      after += '- ';
     }
 
-    str += `${this._message}`;
+    after += `${this._message}`;
 
-    return this.colorify(str);
+    after = this.colorify(after);
+
+    return before + from + after;
   }
 }
 
