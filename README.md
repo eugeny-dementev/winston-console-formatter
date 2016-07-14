@@ -35,6 +35,15 @@ This is custom config for default winston console transform.
   logger.log('silly', 'message');
 ```
 
+Use some custom configs.
+
+```
+  logger.add(winston.transports.Console, toYAML.config({
+    printStack: Boolean, // Print error stack is present, default true
+    printMeta: Boolean // Print error stack is present, default true
+  }));
+```
+
 [travis-img]: https://travis-ci.org/eugeny-dementev/winston-console-formatter.svg?branch=master
 [travis-url]: https://travis-ci.org/eugeny-dementev/winston-console-formatter
 
