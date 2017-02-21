@@ -69,6 +69,8 @@ function typifiedString (value, indent) {
       return clc.yellow(value);
     case 'boolean':
       return clc.yellow.bold(value);
+    case 'date':
+      return clc.green.bold(value.toISOString());
     case 'null':
       return clc.magenta.bold('null');
     case 'undefined':
@@ -79,6 +81,10 @@ function typifiedString (value, indent) {
 function typeOf (value) {
   if (Array.isArray(value)) {
     return 'array';
+  }
+
+  if (value instanceof Date) {
+    return 'date';
   }
 
   if (!value && typeof value === 'object') {
