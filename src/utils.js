@@ -9,7 +9,7 @@ function getStackTrace (stackTrace) {
     return '';
   }
 
-  return clc.magenta(`\n  ${stackTrace.replace(/(\r\n|\n|\r)/gm, '$1  ')}`);
+  return clc.magenta(`\n  ${String(stackTrace).replace(/(\r\n|\n|\r)/gm, '$1  ')}`);
 }
 
 /**
