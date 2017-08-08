@@ -226,21 +226,70 @@ experiment('Utils', () => {
   });
 
   experiment('utils.getStackTrace', () => {
-    test('empty stack is empty string', (done) => {
-      assert.equal(utils.getStackTrace(''), '');
+    test('empty stack, trace is empty string', (done) => {
+      assert.equal(utils.getStackTrace(null, null), '');
+
+      done();
+    });
+
+    test('empty stack array is empty string', (done) => {
+      assert.equal(utils.getStackTrace([], null), '');
+
+      done();
+    });
+
+    test('empty trace array is empty string', (done) => {
+      assert.equal(utils.getStackTrace(null, []), '');
 
       done();
     });
 
     test('not empty stack is moved to the next line', (done) => {
-      assert.equal(utils.getStackTrace('Error:'), clc.magenta('\n  Error:'));
+      assert.equal(
+        utils.getStackTrace(['Error:'], null),
+        clc.magenta('\n  Error:')
+      );
+
+      done();
+    });
+    test('not empty trace is moved to the next line', (done) => {
+      const traces = [{
+        function: null,
+        file: '/path/to/file.js',
+        line: 10,
+        column: 20
+      }];
+      assert.equal(
+        utils.getStackTrace(null, traces),
+        clc.magenta('\n  at (/path/to/file.js:10:20)')
+      );
+
+      done();
+    });
+
+    test('not empty trace every line break moved to right by 2 spaces', (done) => {
+      const traces = [{
+        function: null,
+        file: '/path/to/file.js',
+        line: 10,
+        column: 20
+      }, {
+        function: 'called.function',
+        file: '/path/to/another/file.js',
+        line: 30,
+        column: 40
+      }];
+      assert.equal(
+        utils.getStackTrace(null, traces),
+        clc.magenta('\n  at (/path/to/file.js:10:20)\n    at called.function (/path/to/another/file.js:30:40)')
+      );
 
       done();
     });
 
     test('not empty stack every line break moved to right by 2 spaces', (done) => {
       assert.equal(
-        utils.getStackTrace('Error:\n  at line'),
+        utils.getStackTrace(['Error:', '  at line'], null),
         clc.magenta('\n  Error:\n    at line')
       );
 
