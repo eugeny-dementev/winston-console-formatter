@@ -1,7 +1,8 @@
 var clc = require('cli-color');
 
 /**
- * @param {string|undefined} stackTrace
+ * @param {[strings...]|undefined} stack
+ * @param {[callbacks...]|undefined}
  * @returns {string}
  */
 function getStackTrace (stack, trace) {
