@@ -51,7 +51,8 @@ function arrayProperty (values, indent = 1) {
   var prefix = getPrefix(indent);
 
   values.forEach((value) => {
-    str += `${prefix}- ${typifiedString(value, indent + 1).trim()}\n`;
+    var _str = typifiedString(value, indent + 1);
+    str += `${prefix}- ${_str ? str.trim() : _str}\n`;
   });
 
   return str.substring(0, str.length - 1);
