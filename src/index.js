@@ -1,33 +1,25 @@
-var utils = require('./utils');
-var Message = require('./message');
-var Colorizer = require('./colorizer');
+const utils = require('./utils');
+const yamlifyObject = require('yamlify-object');
+const yamlifyColors = require('yamlify-object-colors');
+const Message = require('./message');
+const Colorizer = require('./colorizer');
 
-function configuredFormatter ({ colors }) {
+function configuredFormatter({ indent, colors, types = yamlifyColors }) {
   /**
    * @param {Object} options
    * @return {string}
    */
-  return function formatter (options) {
-    var {
-      meta,
-      level,
-      label,
-      message,
-      timestamp
-      } = options;
+  return function formatter(options) {
+    const { meta, level, label, message, timestamp } = options;
 
-    var {
-      from,
-      stack, trace,
-      message: objectMessage
-      } = meta;
+    const { from, stack, trace, message: objectMessage } = meta;
 
     delete meta.from;
     delete meta.message;
     delete meta.stack;
     delete meta.trace;
 
-    var formattedMessage = new Message()
+    let formattedMessage = new Message()
       .setColorizer(new Colorizer(colors))
       .setTime(timestamp)
       .setLabel(label)
@@ -37,16 +29,17 @@ function configuredFormatter ({ colors }) {
       .toString();
 
     formattedMessage += utils.getStackTrace(stack || trace);
-    formattedMessage += utils.metaToYAML(meta);
+    formattedMessage += yamlifyObject(meta, {
+      colors: yamlifyColors,
+      indent: typeof indent === 'undefined' ? '  ' : indent,
+    });
 
     return formattedMessage;
   };
 }
 
-module.exports = {
-  config (options = {}, config = {}) {
-    return Object.assign({ timestamp: utils.getISOTime }, options, {
-      formatter: configuredFormatter(config)
-    });
-  }
+exports.config = function config(options = {}, config = {}) {
+  return Object.assign({ timestamp: utils.getISOTime }, options, {
+    formatter: configuredFormatter(config),
+  });
 };
