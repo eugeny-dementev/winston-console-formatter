@@ -4,7 +4,7 @@ const yamlifyColors = require('yamlify-object-colors');
 const Message = require('./message');
 const Colorizer = require('./colorizer');
 
-function configuredFormatter({ indent, colors, types = yamlifyColors }) {
+function configuredFormatter({ colors, types = yamlifyColors }) {
   /**
    * @param {Object} options
    * @return {string}
@@ -30,16 +30,17 @@ function configuredFormatter({ indent, colors, types = yamlifyColors }) {
 
     formattedMessage += utils.getStackTrace(stack || trace);
     formattedMessage += yamlifyObject(meta, {
-      colors: yamlifyColors,
-      indent: typeof indent === 'undefined' ? '  ' : indent,
+      colors: types,
+      indent: '  ',
     });
 
     return formattedMessage;
   };
 }
 
-exports.config = function config(options = {}, config = {}) {
-  return Object.assign({ timestamp: utils.getISOTime }, options, {
-    formatter: configuredFormatter(config),
-  });
+module.exports = function config(options = {}) {
+  return {
+    timestamp: utils.getISOTime,
+    formatter: configuredFormatter(options),
+  };
 };
