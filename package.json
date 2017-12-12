@@ -17,7 +17,7 @@
     "build": "babel src --out-dir dist",
     "prepublish": "npm run build",
     "test": "lab -T node_modules/babel-lab test/suites/*.js -l",
-    "prettier": "prettier --single-quote --trailing-comma es5 --write ./{src,test}/**/*.js",
+    "prettier": "prettier --single-quote --trailing-comma es5 --write ./{src,test}/**/*.js ./README.md",
     "codecov": "lab -T node_modules/babel-lab -r lcov | codecov",
     "test-cov-html": "lab -T node_modules/babel-lab -r html -o coverage.html"
   },
