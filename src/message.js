@@ -12,16 +12,16 @@ class Message {
    *
    * @param {Colorizer} colorizer
    */
-  setColorizer (colorizer) {
+  setColorizer(colorizer) {
     this._colorizer = colorizer;
 
     return this;
   }
 
-  colorify (string, color = null) {
+  colorify(string, color = null) {
     try {
       var clr = color || this._colorizer.colorByLevel(this._level);
-      return this._colorizer.colorify(string, clr);
+      return clr(string);
     } catch (e) {
       return string;
     }
@@ -31,7 +31,7 @@ class Message {
    * @param {string|undefined} message
    * @return {Message}
    */
-  setMessage (message) {
+  setMessage(message) {
     if (message) {
       this._message = message;
     }
@@ -43,7 +43,7 @@ class Message {
    * @param {boolean|function} timestamp
    * @return {Message}
    */
-  setTime (timestamp) {
+  setTime(timestamp) {
     if (timestamp === true) {
       this._timestamp = utils.getISOTime();
     } else if (typeof timestamp === 'function') {
@@ -57,7 +57,7 @@ class Message {
    * @param {string|undefined} label
    * @return {Message}
    */
-  setLabel (label) {
+  setLabel(label) {
     if (label) {
       this._label = label;
     }
@@ -69,7 +69,7 @@ class Message {
    * @param {string|undefined} level
    * @return {Message}
    */
-  setLevel (level) {
+  setLevel(level) {
     if (level) {
       this._level = level.toLowerCase();
     }
@@ -81,7 +81,7 @@ class Message {
    * @param {string|undefined} from
    * @return {Message}
    */
-  setFrom (from) {
+  setFrom(from) {
     if (from) {
       this._from = from;
     }
@@ -89,7 +89,7 @@ class Message {
     return this;
   }
 
-  toString () {
+  toString() {
     var before = '';
     var from = '';
     var after = '';

@@ -1,29 +1,28 @@
-var clc = require('cli-color');
+const clc = require('cli-color');
 
 const defaults = {
-  silly: 'blue',
-  debug: 'cyan',
-  info: 'green',
-  warn: 'yellow',
-  error: 'red',
-  verbose: 'magenta'
+  silly: clc.blue,
+  debug: clc.cyan,
+  info: clc.green,
+  warn: clc.yellow,
+  error: clc.red,
+  verbose: clc.magenta,
 };
 
 class Colorizer {
-  constructor (colors = defaults) {
+  constructor(colors = defaults) {
     this._colors = colors;
   }
 
-  colorByLevel (level = 'info') {
-    var white = 'white';
-    var color = this._colors[level] || white;
+  colorByLevel(level = 'info') {
+    const colorify = this._colors[level];
 
-    return typeof clc[color] != 'undefined' ? color : white;
-  }
-
-  colorify (string, color) {
-    return clc[color](string);
+    return typeof colorify === 'function' ? colorify : noColor;
   }
 }
 
 module.exports = Colorizer;
+
+function noColor(string) {
+  return string;
+}
