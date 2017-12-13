@@ -77,7 +77,52 @@ wcf({
 });
 ```
 
-![Levels color](/winston.png?raw=true "Types example")
+![Levels color](/winston.png?raw=true "Levels color example")
+
+## Message line
+
+winston-console-formatter can take winston `label` option to enrich message
+line:
+
+```js
+logger.add(winston.transports.Console, {
+  formatter,
+  timestamp,
+  label: 'some label',
+});
+
+logger.log('error', 'message');
+```
+
+![Label](/label.png?raw=true "Label example")
+
+Also winston-console-formatter can handle `from` and `stack` props from meta
+object to enrich message line
+
+### from
+
+```js
+const meta = {
+  from: 'Browser',
+};
+logger.log('error', 'message', meta);
+```
+
+![From](/from.png?raw=true "From example")
+
+### stack
+
+```js
+try {
+  undefined();
+} catch (e) {
+  logger.error(e.toString(), {
+    stack: e.stack,
+  });
+}
+```
+
+![Stack](/stack.png?raw=true "Stack example")
 
 [travis-img]: https://travis-ci.org/eugeny-dementev/winston-console-formatter.svg?branch=master
 [travis-url]: https://travis-ci.org/eugeny-dementev/winston-console-formatter
