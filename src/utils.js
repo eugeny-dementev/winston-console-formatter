@@ -1,15 +1,22 @@
 var clc = require('cli-color');
 
 /**
- * @param {string|undefined} stackTrace
+ * @param {[strings...]|undefined} stack
+ * @param {[callbacks...]|undefined}
  * @returns {string}
  */
-function getStackTrace(stackTrace) {
-  if (!stackTrace) {
-    return '';
+function getStackTrace (stack, trace) {
+  let msg;
+  if (stack && stack.length) {
+    msg = '\n  ' + stack.join('\n  ');
+  } else if (trace && trace.length) {
+    const lines = trace.map((i) => {
+      const fnString = i.function ? `${i.function} ` : '';
+      return `at ${fnString}(${i.file}:${i.line}:${i.column})`;
+    });
+    msg = '\n  ' + lines.join('\n    ');
   }
-
-  return clc.magenta(`\n  ${stackTrace.replace(/(\r\n|\n|\r)/gm, '$1  ')}`);
+  return msg ? clc.magenta(msg) : '';
 }
 
 /**
