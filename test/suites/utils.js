@@ -51,7 +51,33 @@ const colors = {
 };
 
 experiment('Utils', () => {
-  experiment('utils.getStackTrace', () => {
+  experiment('utils.getStackTrace with colors', () => {
+    test('empty stack is empty string', done => {
+      assert.equal(utils.getStackTrace('', true), '');
+
+      done();
+    });
+
+    test('not empty stack is moved to the next line', done => {
+      assert.equal(
+        utils.getStackTrace('Error:', true),
+        clc.magenta('\n  Error:')
+      );
+
+      done();
+    });
+
+    test('not empty stack every line break moved to right by 2 spaces', done => {
+      assert.equal(
+        utils.getStackTrace('Error:\n  at line', true),
+        clc.magenta('\n  Error:\n    at line')
+      );
+
+      done();
+    });
+  });
+
+  experiment('utils.getStackTrace without colors', () => {
     test('empty stack is empty string', done => {
       assert.equal(utils.getStackTrace(''), '');
 
@@ -59,7 +85,7 @@ experiment('Utils', () => {
     });
 
     test('not empty stack is moved to the next line', done => {
-      assert.equal(utils.getStackTrace('Error:'), clc.magenta('\n  Error:'));
+      assert.equal(utils.getStackTrace('Error:'), '\n  Error:');
 
       done();
     });
@@ -67,7 +93,7 @@ experiment('Utils', () => {
     test('not empty stack every line break moved to right by 2 spaces', done => {
       assert.equal(
         utils.getStackTrace('Error:\n  at line'),
-        clc.magenta('\n  Error:\n    at line')
+        '\n  Error:\n    at line'
       );
 
       done();
