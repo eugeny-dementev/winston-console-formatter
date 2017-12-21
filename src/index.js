@@ -34,7 +34,7 @@ function configuredFormatter({
       .toString();
 
     if (stackTrace) {
-      formattedMessage += utils.getStackTrace(stack || trace);
+      formattedMessage += utils.getStackTrace(stack, trace);
     }
 
     if (props) {
