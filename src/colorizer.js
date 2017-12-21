@@ -11,7 +11,7 @@ const defaults = {
 
 class Colorizer {
   constructor(colors = defaults) {
-    this._colors = colors;
+    this._colors = colors || {};
   }
 
   colorByLevel(level = 'info') {

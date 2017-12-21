@@ -4,7 +4,12 @@ const yamlifyColors = require('yamlify-object-colors');
 const Message = require('./message');
 const Colorizer = require('./colorizer');
 
-function configuredFormatter({ colors, types = yamlifyColors }) {
+function configuredFormatter({
+  stackTrace = true,
+  meta: props = true,
+  colors,
+  types = yamlifyColors,
+}) {
   /**
    * @param {Object} options
    * @return {string}
@@ -28,11 +33,16 @@ function configuredFormatter({ colors, types = yamlifyColors }) {
       .setMessage(message || objectMessage)
       .toString();
 
-    formattedMessage += utils.getStackTrace(stack || trace);
-    formattedMessage += yamlifyObject(meta, {
-      colors: types,
-      indent: '  ',
-    });
+    if (stackTrace) {
+      formattedMessage += utils.getStackTrace(stack || trace);
+    }
+
+    if (props) {
+      formattedMessage += yamlifyObject(meta, {
+        colors: types,
+        indent: '  ',
+      });
+    }
 
     return formattedMessage;
   };

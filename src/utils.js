@@ -4,12 +4,14 @@ var clc = require('cli-color');
  * @param {string|undefined} stackTrace
  * @returns {string}
  */
-function getStackTrace(stackTrace) {
+function getStackTrace(stackTrace, colors) {
   if (!stackTrace) {
     return '';
   }
 
-  return clc.magenta(`\n  ${stackTrace.replace(/(\r\n|\n|\r)/gm, '$1  ')}`);
+  const trace = `\n  ${stackTrace.replace(/(\r\n|\n|\r)/gm, '$1  ')}`;
+
+  return colors ? clc.magenta(trace) : trace;
 }
 
 /**
