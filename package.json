@@ -17,25 +17,17 @@
     "build": "babel src --out-dir dist",
     "prepublish": "npm run build",
     "test": "lab -T node_modules/babel-lab test/suites/*.js -l",
-    "prettier": "prettier --single-quote --trailing-comma es5 --write ./{src,test}/**/*.js ./README.md",
+    "prettier":
+      "prettier --single-quote --trailing-comma es5 --write ./{src,test}/**/*.js ./README.md ./package.json",
     "codecov": "lab -T node_modules/babel-lab -r lcov | codecov",
     "test-cov-html": "lab -T node_modules/babel-lab -r html -o coverage.html"
   },
-  "pre-commit": [
-    "prettier"
-  ],
+  "pre-commit": ["prettier"],
   "repository": {
     "type": "git",
     "url": "https://github.com/eugeny-dementev/winston-console-formatter.git"
   },
-  "keywords": [
-    "winston",
-    "console",
-    "formatter",
-    "config",
-    "yaml",
-    "beauty"
-  ],
+  "keywords": ["winston", "console", "formatter", "config", "yaml", "beauty"],
   "author": {
     "name": "Eugeny Dementev",
     "url": "http://github.com/eugeny-dementev"
