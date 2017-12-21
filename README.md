@@ -56,6 +56,14 @@ wcf({
 });
 ```
 
+To disable types colors pass `false`:
+
+```js
+wcf({
+  types: false,
+});
+```
+
 ![Meta object example](/log.png?raw=true "Types example")
 
 ##### options.colors
@@ -76,6 +84,23 @@ wcf({
   },
 });
 ```
+
+To disable colors pass `false`:
+
+```js
+wcf({
+  colors: false,
+});
+```
+
+##### options.stackTrace
+
+Showing passed to meta object `stack` or `trace` prop<br> Type: `boolean`<br>
+Default: `true`
+
+##### options.meta
+
+Showing meta object<br> Type: `boolean`<br> Default: `true`
 
 ![Levels color](/winston.png?raw=true "Levels color example")
 
