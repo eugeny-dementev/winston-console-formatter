@@ -56,6 +56,8 @@ wcf({
 });
 ```
 
+![Meta object example](/log.png?raw=true "Types example")
+
 To disable types colors pass `false`:
 
 ```js
@@ -63,8 +65,6 @@ wcf({
   types: false,
 });
 ```
-
-![Meta object example](/log.png?raw=true "Types example")
 
 ##### options.colors
 
