@@ -85,6 +85,8 @@ wcf({
 });
 ```
 
+![Levels color](/winston.png?raw=true "Levels color example")
+
 To disable colors pass `false`:
 
 ```js
@@ -101,8 +103,6 @@ Default: `true`
 ##### options.meta
 
 Showing meta object<br> Type: `boolean`<br> Default: `true`
-
-![Levels color](/winston.png?raw=true "Levels color example")
 
 ## Message line
 
