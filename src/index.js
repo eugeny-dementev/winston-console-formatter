@@ -1,13 +1,15 @@
-const utils = require('./utils');
 const yamlifyObject = require('yamlify-object');
 const yamlifyColors = require('yamlify-object-colors');
+
+const utils = require('./utils');
 const Message = require('./message');
 const Colorizer = require('./colorizer');
+const defaultErrorColors = require('./colors');
 
 function configuredFormatter({
   stackTrace = true,
   meta: props = true,
-  colors,
+  colors = defaultErrorColors,
   types = yamlifyColors,
 }) {
   /**

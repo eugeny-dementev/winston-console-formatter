@@ -1,5 +1,6 @@
 var Message = require('../../src/message');
 var Colorizer = require('../../src/colorizer');
+var colors = require('../../src/colors');
 
 var Lab = require('lab');
 var lab = (exports.lab = Lab.script());
@@ -91,7 +92,7 @@ experiment('Message.', () => {
       var message = new Message();
 
       var str = message
-        .setColorizer(new Colorizer())
+        .setColorizer(new Colorizer(colors))
         .setFrom('client')
         .toString();
 
@@ -127,10 +128,10 @@ experiment('Message.', () => {
   });
 
   experiment('Color.', () => {
-    test('with Colorizer all is colored by default in level color', done => {
+    test('with Colorizer all is not colored by default in level color', done => {
       var message = new Message().setColorizer(new Colorizer());
 
-      assert.equal(message.colorify(`string`), clc.green(`string`));
+      assert.equal(message.colorify(`string`), `string`);
 
       done();
     });
