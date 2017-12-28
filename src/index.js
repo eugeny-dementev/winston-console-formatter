@@ -7,6 +7,8 @@ const Colorizer = require('./colorizer');
 const defaultErrorColors = require('./colors');
 
 function configuredFormatter({
+  postfix = '',
+  prefix = '',
   stackTrace = true,
   meta: props = true,
   colors = defaultErrorColors,
@@ -43,10 +45,12 @@ function configuredFormatter({
       formattedMessage += yamlifyObject(meta, {
         colors: types,
         indent: '  ',
+        prefix: '\n',
+        postfix: '',
       });
     }
 
-    return formattedMessage;
+    return `${prefix}${formattedMessage}${postfix}`;
   };
 }
 
