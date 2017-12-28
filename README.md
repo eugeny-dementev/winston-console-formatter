@@ -104,6 +104,14 @@ Default: `true`
 
 Showing meta object<br> Type: `boolean`<br> Default: `true`
 
+##### options.prefix
+
+Type: `string`<br> Default: `''`
+
+##### options.postfix
+
+Type: `string`<br> Default: `''`
+
 ## Message line
 
 winston-console-formatter can take winston `label` option to enrich message
