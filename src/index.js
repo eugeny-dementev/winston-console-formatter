@@ -28,17 +28,31 @@ function configuredFormatter({
     delete meta.stack;
     delete meta.trace;
 
+    let stackTrace;
+    let stackTraceMesssage;
+
+    if (!(message || objectMessage) && Array.isArray(stack)) {
+      stackTraceMesssage = stack[0];
+    }
+
+    if (Array.isArray(stack)) {
+      stackTrace = stack.join('\n');
+    }
+
     let formattedMessage = new Message()
       .setColorizer(new Colorizer(colors))
       .setTime(timestamp)
       .setLabel(label)
       .setLevel(level)
       .setFrom(from)
-      .setMessage(message || objectMessage)
+      .setMessage(stackTraceMesssage || message || objectMessage)
       .toString();
 
     if (stackTrace) {
-      formattedMessage += utils.getStackTrace(stack || trace, Boolean(colors));
+      formattedMessage += utils.getStackTrace(
+        stackTrace || stack || trace,
+        Boolean(colors)
+      );
     }
 
     if (props) {
