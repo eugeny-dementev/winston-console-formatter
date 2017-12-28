@@ -1,6 +1,6 @@
 {
   "name": "winston-console-formatter",
-  "version": "1.0.0-alpha.11",
+  "version": "1.0.0-alpha.12",
   "description": "Pretty print console formatter in yaml like style",
   "main": "./dist/index.js",
   "devDependencies": {
