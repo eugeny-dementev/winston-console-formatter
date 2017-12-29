@@ -28,7 +28,7 @@ function configuredFormatter({
     delete meta.stack;
     delete meta.trace;
 
-    let stackTrace;
+    let stackTraceJoined;
     let stackTraceMesssage;
 
     if (!(message || objectMessage) && Array.isArray(stack)) {
@@ -36,7 +36,7 @@ function configuredFormatter({
     }
 
     if (Array.isArray(stack)) {
-      stackTrace = stack.join('\n');
+      stackTraceJoined = stack.join('\n');
     }
 
     let formattedMessage = new Message()
@@ -50,7 +50,7 @@ function configuredFormatter({
 
     if (stackTrace) {
       formattedMessage += utils.getStackTrace(
-        stackTrace || stack || trace,
+        stackTraceJoined || stack || trace,
         Boolean(colors)
       );
     }
