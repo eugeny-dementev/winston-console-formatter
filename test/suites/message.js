@@ -88,7 +88,7 @@ experiment('Message.', () => {
   });
 
   experiment('From.', () => {
-    test('From is white in green info.', done => {
+    test('From is white in colorful message', done => {
       var message = new Message();
 
       var str = message
