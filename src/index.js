@@ -28,15 +28,16 @@ function configuredFormatter({
     delete meta.stack;
     delete meta.trace;
 
+    let stackTraceRaw = stack || trace;
     let stackTraceJoined;
     let stackTraceMesssage;
 
-    if (!(message || objectMessage) && Array.isArray(stack)) {
-      stackTraceMesssage = stack[0];
+    if (!(message || objectMessage) && Array.isArray(stackTraceRaw)) {
+      stackTraceMesssage = stackTraceRaw[0];
     }
 
-    if (Array.isArray(stack)) {
-      stackTraceJoined = stack.join('\n');
+    if (Array.isArray(stackTraceRaw)) {
+      stackTraceJoined = stackTraceRaw.join('\n');
     }
 
     let formattedMessage = new Message()
@@ -50,7 +51,7 @@ function configuredFormatter({
 
     if (stackTrace) {
       formattedMessage += utils.getStackTrace(
-        stackTraceJoined || stack || trace,
+        stackTraceJoined === undefined ? stackTraceRaw : stackTraceJoined,
         Boolean(colors)
       );
     }
