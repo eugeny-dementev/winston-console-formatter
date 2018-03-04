@@ -48,7 +48,7 @@
   "homepage": "https://github.com/eugeny-dementev/winston-console-formatter",
   "dependencies": {
     "cli-color": "^1.2.0",
-    "yamlify-object": "^0.4.5",
+    "yamlify-object": "^0.5.1",
     "yamlify-object-colors": "^1.0.3"
   }
 }
