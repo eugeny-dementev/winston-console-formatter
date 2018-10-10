@@ -1,9 +1,9 @@
-# Winston console formatter
+# Winston@2 console formatter
 
 [![Build Status][travis-img]][travis-url]
 [![Code Coverage][codecov-img]][codecov-url]
 
-Pretty print console formatter in yaml like style
+Pretty print console formatter in yaml like style for winston@2
 
 ## Install
 
