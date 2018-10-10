@@ -40,7 +40,7 @@ logger.log('silly', 'message');
 
 ## API
 
-### wcf.config(options)
+### wcf(options)
 
 #### options
 
