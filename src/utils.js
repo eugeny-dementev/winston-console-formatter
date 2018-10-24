@@ -17,8 +17,8 @@ function getStackTrace(stackTrace, colors) {
 /**
  * @return {string} - iso formatted time string
  */
-function getISOTime() {
-  var now = new Date()
+function getISOTime(d = new Date()) {
+  var now = d
     .toISOString()
     .split('T')
     .join(' ');
