@@ -20,7 +20,7 @@ experiment('Mixin.', () => {
     done();
   });
 
-  test('colorify must send error if color not found', done => {
+  test('Confirm mixin works', done => {
     var logger = winston.createLogger({
       level: 'silly',
       transports: [ConsoleFormatterMixin(new winston.transports.Console())],
@@ -31,7 +31,7 @@ experiment('Mixin.', () => {
     assert.equal(calledWith[0].length, 1);
     assert.equal(
       calledWith[0][0],
-      '\u001b[32m[2018-11-10 08:01:02.000] [INFO] \u001b[39m\u001b[32mTest String\u001b[39m\n  level: \u001b[32minfo\u001b[39m\n'
+      '\u001b[32m[2018-11-10 08:01:02.000] [INFO] \u001b[39m\u001b[32mTest String\u001b[39m\n  \u001b[39m\n'
     );
     done();
   });

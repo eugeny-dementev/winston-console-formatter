@@ -26,6 +26,7 @@ function ColorizedMixin(instance, options = {}) {
     delete remainingInfo.message;
     delete remainingInfo.timestamp;
     delete remainingInfo.label;
+    delete remainingInfo.level;
 
     let stackTraceRaw = info.stack || info.trace;
     let stackTraceJoined;
