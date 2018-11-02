@@ -17,9 +17,11 @@ This is custom config for default winston console transform.
 
 ```js
 const winston = require('winston');
-const ConsoleFormatterMixin = require('winston-console-formatter/dist/mixin');
+const ConsoleFormatter = require('winston-console-formatter/dist/formatter');
 var logger = winston.createLogger({
-  transports: [ConsoleFormatterMixin(new winston.transports.Console())],
+  transports: [
+    new winston.transports.Console({ formatter: new ConsoleFormatter() }),
+  ],
 });
 logger.log('error', 'message');
 logger.log('warn', 'message');
