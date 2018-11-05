@@ -46,6 +46,8 @@ class Message {
   setTime(timestamp) {
     if (timestamp === true) {
       this._timestamp = utils.getISOTime();
+    } else if (timestamp instanceof Date) {
+      this._timestamp = utils.getISOTime(timestamp);
     } else if (typeof timestamp === 'function') {
       this._timestamp = timestamp();
     }

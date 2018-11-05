@@ -13,7 +13,25 @@ npm install winston-console-formatter
 
 This is custom config for default winston console transform.
 
-## Usage
+## Usage - winston@3
+
+```js
+const winston = require('winston');
+const consoleFormatter = require('winston-console-formatter/dist/formatter');
+var logger = winston.createLogger({
+  transports: [
+    new winston.transports.Console({ formatter: consoleFormatter() }),
+  ],
+});
+logger.log('error', 'message');
+logger.log('warn', 'message');
+logger.log('info', 'message');
+logger.log('verbose', 'message');
+logger.log('debug', 'message');
+logger.log('silly', 'message');
+```
+
+## Usage - winson@2
 
 ```js
 const winston = require('winston');
@@ -56,7 +74,7 @@ wcf({
 });
 ```
 
-![Meta object example](/log.png?raw=true "Types example")
+![Meta object example](/log.png?raw=true 'Types example')
 
 To disable types colors pass `false`:
 
@@ -85,7 +103,7 @@ wcf({
 });
 ```
 
-![Levels color](/winston.png?raw=true "Levels color example")
+![Levels color](/winston.png?raw=true 'Levels color example')
 
 To disable colors pass `false`:
 
@@ -127,7 +145,7 @@ logger.add(winston.transports.Console, {
 logger.log('error', 'message');
 ```
 
-![Label](/label.png?raw=true "Label example")
+![Label](/label.png?raw=true 'Label example')
 
 Also winston-console-formatter can handle `from` and `stack` props from meta
 object to enrich message line
@@ -141,7 +159,7 @@ const meta = {
 logger.log('error', 'message', meta);
 ```
 
-![From](/from.png?raw=true "From example")
+![From](/from.png?raw=true 'From example')
 
 ### stack
 
@@ -155,7 +173,7 @@ try {
 }
 ```
 
-![Stack](/stack.png?raw=true "Stack example")
+![Stack](/stack.png?raw=true 'Stack example')
 
 [travis-img]: https://travis-ci.org/eugeny-dementev/winston-console-formatter.svg?branch=master
 [travis-url]: https://travis-ci.org/eugeny-dementev/winston-console-formatter

@@ -1,113 +1,41 @@
-const configureFormatter = require('../../src/index');
+var consoleFormatter = require('../../src/formatter');
 
-const Lab = require('lab');
-const lab = (exports.lab = Lab.script());
-const { experiment, test, beforeEach, afterEach } = lab;
+var Lab = require('lab');
+var lab = (exports.lab = Lab.script());
+var { beforeEach, afterEach, experiment, test } = lab;
 
+var assert = require('assert');
 const sinon = require('sinon');
-const assert = require('assert');
-const clc = require('cli-color');
+var winston = require('winston');
+var _oldLog = console.log.bind(console);
 
-const log = {
-  colorize: false,
-  json: false,
-  level: 'error',
-  meta: {},
-};
-
-experiment('Formatter', () => {
-  let sandbox;
-
+experiment('Formatter.', () => {
   beforeEach(done => {
-    sandbox = sinon.createSandbox();
-
+    sinon.spy(console._stdout, 'write');
     done();
   });
-
   afterEach(done => {
-    sandbox.restore();
-
+    console._stdout.write.restore();
     done();
   });
-
-  experiment('Stack trace', () => {
-    test('stack as string', done => {
-      const { formatter } = configureFormatter({ types: false, colors: false });
-      const stack =
-        'TypeError: undefined is not a function\n  ' +
-        'at Object.<anonymous> (test.js)\n  ' +
-        'at Module._compile (module.js:641:30)';
-
-      sandbox.stub(log, 'meta').value({ stack });
-
-      assert.equal(
-        formatter(log),
-        '[ERROR] No message\n  ' +
-          'TypeError: undefined is not a function\n    ' +
-          'at Object.<anonymous> (test.js)\n    ' +
-          'at Module._compile (module.js:641:30)'
-      );
-
-      done();
+  test('Logging in right format', done => {
+    var logger = winston.createLogger({
+      level: 'silly',
+      transports: [
+        new winston.transports.Console({
+          format: consoleFormatter(),
+        }),
+      ],
     });
+    logger.info('Test String', { timestamp: new Date(2018, 10, 10, 0, 1, 2) });
+    var calledWith = console._stdout.write.getCalls().map(c => c.args);
 
-    test('stack as array', done => {
-      const { formatter } = configureFormatter({ types: false, colors: false });
-      const stack = [
-        'TypeError: undefined is not a function',
-        '  at Object.<anonymous> (test.js)',
-        '  at Module._compile (module.js:641:30)',
-      ];
-
-      sandbox.stub(log, 'meta').value({ stack });
-
-      assert.equal(
-        formatter(log),
-        '[ERROR] TypeError: undefined is not a function\n  ' +
-          'TypeError: undefined is not a function\n    ' +
-          'at Object.<anonymous> (test.js)\n    ' +
-          'at Module._compile (module.js:641:30)'
-      );
-
-      done();
-    });
-
-    test('no stack trace if stackTrace=false', done => {
-      const { formatter } = configureFormatter({
-        types: false,
-        colors: false,
-        stackTrace: false,
-      });
-      const stack = [
-        'TypeError: undefined is not a function',
-        '  at Object.<anonymous> (test.js)',
-        '  at Module._compile (module.js:641:30)',
-      ];
-
-      sandbox.stub(log, 'meta').value({ stack });
-
-      assert.equal(
-        formatter(log),
-        '[ERROR] TypeError: undefined is not a function'
-      );
-
-      done();
-    });
-  });
-
-  experiment('Meta', () => {
-    test('no meta props if meta=false', done => {
-      const { formatter } = configureFormatter({
-        types: false,
-        colors: false,
-        meta: false,
-      });
-
-      sandbox.stub(log, 'meta').value({ one: 1, two: 2 });
-
-      assert.equal(formatter(log), '[ERROR] No message');
-
-      done();
-    });
+    assert.equal(calledWith.length, 1);
+    assert.equal(calledWith[0].length, 1);
+    assert.equal(
+      calledWith[0][0],
+      '\u001b[32m[2018-11-10 08:01:02.000] [INFO] \u001b[39m\u001b[32mTest String\u001b[39m\n'
+    );
+    done();
   });
 });

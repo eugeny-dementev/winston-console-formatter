@@ -3,6 +3,9 @@
   "version": "1.0.0-beta.3",
   "description": "Pretty print console formatter in yaml like style",
   "main": "./dist/index.js",
+  "engines": {
+    "node": ">= 6.4.0"
+  },
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-lab": "^2.0.0",
@@ -48,6 +51,7 @@
   "homepage": "https://github.com/eugeny-dementev/winston-console-formatter",
   "dependencies": {
     "cli-color": "^1.2.0",
+    "winston": "3.x",
     "yamlify-object": "^0.5.1",
     "yamlify-object-colors": "^1.0.3"
   }
